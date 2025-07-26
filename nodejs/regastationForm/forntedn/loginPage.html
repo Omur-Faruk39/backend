@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="email" id="email" placeholder="enter you email" />
+    <input type="password" id="password" placeholder="enter you password" />
+    <button>submit</button>
+
+    <div>
+      <h1 id="name"></h1>
+    </div>
+
+    <script>
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const submitButton = document.querySelector("button");
+      const nameDisplay = document.getElementById("name");
+
+      submitButton.addEventListener("click", () => {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        const query = new URLSearchParams({ email, password });
+
+        fetch(`http://localhost:3000/login?${query.toString()}`)
+          .then((response) => response.text())
+          .then((data) => {
+            nameDisplay.textContent = data;
+          });
+      });
+    </script>
+  </body>
+</html>

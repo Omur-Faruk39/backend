@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" name="name" id="name" placeholder="enter you name" />
+    <input type="email" id="email" placeholder="enter you email" />
+    <input type="password" id="password" placeholder="enter you password" />
+    <button id="submit">submit</button>
+    <script>
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const submitButton = document.querySelector("#submit");
+
+      submitButton.addEventListener("click", () => {
+        const name = nameInput.value;
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        if (name && email && password) {
+          fetch("http://localhost:3000", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, password }),
+          })
+            .then((response) => response.text())
+            .then((data) => {
+              alert(data);
+              //   location.reload(); // Reload the page after clicking OK
+            });
+        } else {
+          alert("Please fill in all fields.");
+        }
+      });
+    </script>
+  </body>
+</html>

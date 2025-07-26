@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Image Upload</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      .preview {
+        margin-top: 15px;
+      }
+      .preview img {
+        max-width: 200px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Upload Your Profile Image</h2>
+    <input type="file" accept="image/*" id="profileInput" />
+    <div class="preview" id="previewContainer"></div>
+
+    <script>
+      const profileInput = document.getElementById("profileInput");
+      const previewContainer = document.getElementById("previewContainer");
+
+      profileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            previewContainer.innerHTML = `<img src="${reader.result}" alt="Profile Preview" />`;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          previewContainer.innerHTML = "Please select a valid image file.";
+        }
+      });
+    </script>
+  </body>
+</html>
